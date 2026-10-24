@@ -1,0 +1,68 @@
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# Python virtual environments
+venv/
+.venv/
+env/
+
+# Python cache and compiled files
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+
+# Test and coverage files
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Type checking and lint caches
+.mypy_cache/
+.ruff_cache/
+
+# Logs
+*.log
+logs/
+
+# IDE and editor settings
+.vscode/
+.idea/
+
+# OS-generated files
+.DS_Store
+Thumbs.db
+
+# Local database files and dumps
+*.sql
+*.sql.gz
+*.dump
+*.sqlite3
+*.db
+
+# Temporary audio and uploaded files
+temp/
+tmp/
+uploads/
+*.wav
+*.mp3
+*.m4a
+*.ogg
+*.webm
+
+# Model files and downloaded weights
+models/
+*.bin
+*.pt
+*.onnx
+
+# Build and distribution files
+build/
+dist/
+*.egg-info/
+
+# Alembic generated cache
+alembic/__pycache__/
