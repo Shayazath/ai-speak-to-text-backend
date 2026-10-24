@@ -54,7 +54,6 @@ uploads/
 *.webm
 
 # Model files and downloaded weights
-models/
 *.bin
 *.pt
 *.onnx
