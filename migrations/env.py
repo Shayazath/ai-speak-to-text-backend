@@ -1,38 +1,26 @@
-import os
+
 from logging.config import fileConfig
 
 from alembic import context
-from dotenv import load_dotenv
 from sqlalchemy import create_engine, pool
 
-from app.database import Base
-from app.models import Transcript  # Register the model
-
-load_dotenv()
+from app.config import settings
+from app.database import Base, create_database_engine
+from app.models import Transcript
 
 config = context.config
 
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
-# Expose SQLAlchemy models to Alembic autogenerate
 target_metadata = Base.metadata
 
 
 def get_database_url():
-    database_url = os.getenv("DATABASE_URL")
-
-    if not database_url:
-        raise RuntimeError(
-            "DATABASE_URL is not configured in the .env file"
-        )
-
-    return database_url
+    return settings.DATABASE_URL
 
 
 def run_migrations_offline() -> None:
-    """Run migrations without creating a database connection."""
-
     context.configure(
         url=get_database_url(),
         target_metadata=target_metadata,
@@ -45,12 +33,7 @@ def run_migrations_offline() -> None:
 
 
 def run_migrations_online() -> None:
-    """Run migrations using a live database connection."""
-
-    connectable = create_engine(
-        get_database_url(),
-        poolclass=pool.NullPool,
-    )
+    connectable = create_database_engine(poolclass=pool.NullPool)
 
     try:
         with connectable.connect() as connection:
@@ -63,7 +46,6 @@ def run_migrations_online() -> None:
                 context.run_migrations()
     finally:
         connectable.dispose()
-
 
 if context.is_offline_mode():
     run_migrations_offline()
